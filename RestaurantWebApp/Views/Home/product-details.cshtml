@@ -1,0 +1,101 @@
+﻿@using RestaurantWebApp22092026.ViewModels
+@{
+    ViewData["Title"] = "Product page";
+    ViewData["HideAboutUs"] = true;
+    ViewData["HidePartners"] = true;
+}
+@model HomeViewModel
+<!doctype html>
+<html class="no-js" lang="zxx">
+    
+<!-- Mirrored from htmldemo.hasthemes.com/basmoti/basmoti/blog-details.html by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 21 Jul 2021 11:16:46 GMT -->
+<!-- Added by HTTrack -->
+<meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
+<body>
+    <!-- header start -->
+    <div class="breadcrumb-area bg-img ptb-80" style="background-image: url('@Url.Content("~/SystemSettingsImages/" + Model.SystemSettings?.SliderBackgroundURL)');">
+        <div class="container">
+            <div class="breadcrumb-content text-center">
+                <h3>@Model.Titles.FirstOrDefault(x => x.TitleKeyword == "Menu")?.Title</h3>
+                <ul>
+                    <li>
+                        <a asp-controller="Home" asp-action="Index">Home</a>
+                    </li>
+                    <li class="active">@Model.Titles.FirstOrDefault(x => x.TitleKeyword == "BlogDetails")?.Title</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="blog-area pt-100">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-xl-9 ">
+                    <div class="blog-details-wrapper">
+                        @foreach(var item in Model.MenuItems.Where(x => x.IsPopular == true))
+                            {
+                            <div class="single-blog-wrapper">
+                                <div class="blog-img mb-30">
+                                    <a href="#">
+                                        <img src="~/MenuItemsImage/@item.MenuItemsImageURL" style="max-width:900px; max-height:500px;" alt="">
+                                    </a>
+                                    <span class="blogpost-time-date">
+                                        <span class="date">01</span>
+                                        <span class="month">Feb</span>
+                                    </span>
+                                </div>
+                                <h2>
+                                    @item.MenuItemsTitle
+                                </h2>
+                                <p>@item.MenuItemsFirstDesc</p>
+                                <blockquote class="importent-title">
+                                    <h4>@item.MenuItemsSecondDesc</h4>
+                                </blockquote>
+                                <p>@item.MenuCategoryName</p>
+                                
+                            </div>
+                            }
+                            
+
+                             
+                    </div>
+                </div>
+                <div class="col-lg-4 col-xl-3">
+                    <div class="sidebar-wrapper gray-bg-7 shop-sidebar-mrg">
+                             
+                        <div class="sidebar-widget">
+                            <h4 class="sidebar-title">Recent Posts</h4>
+                            <div class="recent-posts-wrap mt-30">
+                                    @foreach (var item in Model.MenuItems.Where(x => x.IsPopular == true))
+                                    {
+                                    <div class="single-recent-posts mb-20">
+                                        <div class="recent-posts-img">
+                                            <img src="~/MenuItemsImage/@item.MenuItemsImageURL" style="max-width:90px; max-height:90px;" alt="">
+                                        </div>
+                                        <div class="recent-posts-content">
+                                            <h4>
+                                                <a href="#">@item.MenuItemsTitle</a>
+                                            </h4>
+                                            <span> March 14, 2018</span>
+                                        </div>
+                                    </div>
+                                    }
+                            </div>
+                        </div>
+
+                             
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="ptb-30"></div>
+
+        
+        
+        
+        
+   
+</body>
+
+<!-- Mirrored from htmldemo.hasthemes.com/basmoti/basmoti/blog-details.html by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 21 Jul 2021 11:16:50 GMT -->
+</html>

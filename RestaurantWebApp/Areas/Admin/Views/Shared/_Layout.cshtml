@@ -1,0 +1,350 @@
+﻿@* <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - WebAppTemplate</title>
+    <script type="importmap"></script>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/WebAppTemplate.styles.css" asp-append-version="true" />
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+            <div class="container-fluid">
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">WebAppTemplate</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                    <ul class="navbar-nav flex-grow-1">
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <div class="container">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+    <footer class="border-top footer text-muted">
+        <div class="container">
+            &copy; 2026 - WebAppTemplate - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+        </div>
+    </footer>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html> *@
+
+<!doctype html>
+<html lang="en">
+
+<head>
+        
+    <meta charset="utf-8" />
+    <title>Dashboard | Upcube - Admin & Dashboard Template</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta content="Premium Multipurpose Admin & Dashboard Template" name="description" />
+    <meta content="Themesdesign" name="author" />
+    <!-- App favicon -->
+    <link rel="shortcut icon" href="~/Admin Template/assets/images/favicon.ico">
+
+    <!-- DataTables -->
+    <link href="~/Admin Template/assets/libs/datatables.net-bs4/css/dataTables.bootstrap4.min.css" rel="stylesheet" type="text/css" />
+
+    <!-- Responsive datatable examples -->
+    <link href="~/Admin Template/assets/libs/datatables.net-responsive-bs4/css/responsive.bootstrap4.min.css" rel="stylesheet" type="text/css" />
+
+    <!-- Bootstrap Css -->
+    <link href="~/Admin Template/assets/css/bootstrap.min.css" id="bootstrap-style" rel="stylesheet" type="text/css" />
+    <!-- Icons Css -->
+    <link href="~/Admin Template/assets/css/icons.min.css" rel="stylesheet" type="text/css" />
+    <!-- App Css-->
+    <link href="~/Admin Template/assets/css/app.min.css" id="app-style" rel="stylesheet" type="text/css" />
+
+</head>
+
+<body data-topbar="dark">
+    
+    <!-- <body data-layout="horizontal" data-topbar="dark"> -->
+    <!-- Begin page -->
+    <div id="layout-wrapper">
+
+            
+        <header id="page-topbar">
+            <div class="navbar-header">
+                <div class="d-flex">
+                    <!-- LOGO -->
+                    <div class="navbar-brand-box">
+                        <a href="index.html" class="logo logo-dark">
+                            <span class="logo-sm">
+                                <img src="~/Admin Template/assets/images/logo-sm.png" alt="logo-sm" height="22">
+                            </span>
+                            <span class="logo-lg">
+                                <img src="~/Admin Template/assets/images/logo-dark.png" alt="logo-dark" height="20">
+                            </span>
+                        </a>
+
+                        <a href="index.html" class="logo logo-light">
+                            <span class="logo-sm">
+                                <img src="~/Admin Template/assets/images/logo-sm.png" alt="logo-sm-light" height="22">
+                            </span>
+                            <span class="logo-lg">
+                                <img src="~/Admin Template/assets/images/logo-light.png" alt="logo-light" height="20">
+                            </span>
+                        </a>
+                    </div>
+
+                    <button type="button" class="btn btn-sm px-3 font-size-24 header-item waves-effect" id="vertical-menu-btn">
+                        <i class="ri-menu-2-line align-middle"></i>
+                    </button>
+
+
+                </div>
+
+                <div class="d-flex">
+
+
+
+
+                    <div class="dropdown d-none d-lg-inline-block ms-1">
+                        <button type="button" class="btn header-item noti-icon waves-effect" data-toggle="fullscreen">
+                            <i class="ri-fullscreen-line"></i>
+                        </button>
+                    </div>
+
+
+                    <div class="dropdown d-inline-block user-dropdown">
+                        <button type="button" class="btn header-item waves-effect" id="page-header-user-dropdown"
+                                data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <img class="rounded-circle header-profile-user" src="~/Admin Template/assets/images/Admin-logo-2.png"
+                                 alt="Header Avatar">
+                            <span class="d-none d-xl-inline-block ms-1">@await Component.InvokeAsync("UserInfo")</span>
+                            <i class="mdi mdi-chevron-down d-none d-xl-inline-block"></i>
+                        </button>
+                        <div class="dropdown-menu dropdown-menu-end">
+                            <form asp-action="Logout" asp-controller="Account" id="frmLogout" method="post">
+                                @Html.AntiForgeryToken()
+                                    <a class="dropdown-item text-danger btnLogout" href="#"><i class="ri-shut-down-line align-middle me-1 text-danger"></i> Logout</a>
+                            </form>
+                        </div>
+                    </div>
+
+            
+                </div>
+            </div>
+        </header>
+
+        <!-- ========== Left Sidebar Start ========== -->
+        <div class="vertical-menu">
+
+            <div data-simplebar class="h-100">
+
+                <!-- User details -->
+                <div class="user-profile text-center mt-3">
+                    <div class="">
+                        <img src="~/Admin Template/assets/images/Admin-logo-2.png" alt="" class="avatar-md rounded-circle">
+                    </div>
+                    <div class="mt-3">
+                        <h4 class="font-size-16 mb-1">@await Component.InvokeAsync("UserInfo")</h4>
+                        <span class="text-muted"><i class="ri-record-circle-line align-middle font-size-14 text-success"></i> Online</span>
+                    </div>
+                </div>
+
+                <!--- Sidemenu -->
+                <div id="sidebar-menu">
+                    <!-- Left Menu Start -->
+                    <ul class="metismenu list-unstyled" id="side-menu">
+                        <li class="menu-title">Menu</li>
+
+                        <li>
+                            <a asp asp-action="Index" asp-controller="SystemSettings" asp-area="Admin" class="waves-effect">
+                                <i class="ri-settings-2-fill"></i><span class="badge"></span>
+                                <span>System settings</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a asp asp-action="Index" asp-controller="Slider" asp-area="Admin" class="waves-effect">
+                                <i class="ri-slideshow-fill"></i><span class="badge"></span>
+                                <span>Slider</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a asp asp-action="Index" asp-controller="Titles" asp-area="Admin" class="waves-effect">
+                                <i class="ri-list-ordered"></i><span class="badge rounded-pill"></span>
+                                <span>Titles</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a asp asp-action="Index" asp-controller="Feedback" asp-area="Admin" class="waves-effect">
+                                <i class="ri-feedback-fill"></i><span class="badge rounded-pill"></span>
+                                <span>Feedback</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a asp asp-action="Index" asp-controller="About" asp-area="Admin" class="waves-effect">
+                                <i class="ri-information-fill"></i><span class="badge rounded-pill"></span>
+                                <span>About</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a asp asp-action="Index" asp-controller="Banner" asp-area="Admin" class="waves-effect">
+                                <i class="ri-flag-fill"></i><span class="badge rounded-pill"></span>
+                                <span>Banner</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a asp asp-action="Index" asp-controller="Partners" asp-area="Admin" class="waves-effect">
+                                <i class="ri-user-star-fill"></i><span class="badge rounded-pill"></span>
+                                <span>Partners</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a asp asp-action="Index" asp-controller="SocialMedia" asp-area="Admin" class="waves-effect">
+                                <i class="ri-hashtag"></i><span class="badge rounded-pill"></span>
+                                <span>Social Media</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a asp asp-action="Index" asp-controller="MasterContactUs" asp-area="Admin" class="waves-effect">
+                                <i class="ri-customer-service-fill"></i><span class="badge rounded-pill"></span>
+                                <span>Contact Us</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a asp asp-action="Index" asp-controller="OpeningTime" asp-area="Admin" class="waves-effect">
+                                <i class="ri-calendar-fill"></i><span class="badge rounded-pill"></span>
+                                <span>Opening Hours</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a asp asp-action="Index" asp-controller="Services" asp-area="Admin" class="waves-effect">
+                                <i class="ri-service-fill"></i><span class="badge rounded-pill"></span>
+                                <span>Services</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a asp asp-action="Index" asp-controller="MenuCategory" asp-area="Admin" class="waves-effect">
+                                <i class="ri-restaurant-2-fill"></i><span class="badge rounded-pill"></span>
+                                <span>Item Categories</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a asp asp-action="Index" asp-controller="MenuItems" asp-area="Admin" class="waves-effect">
+                                <i class="ri-file-list-3-fill"></i><span class="badge rounded-pill"></span>
+                                <span>Item menu</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a asp asp-action="Index" asp-controller="TransactionContactUs" asp-area="Admin" class="waves-effect">
+                                <i class="ri-mail-fill"></i><span class="badge rounded-pill"></span>
+                                <span>Emails</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a asp asp-action="Index" asp-controller="TransactionNewsLetter" asp-area="Admin" class="waves-effect">
+                                <i class="ri-article-fill"></i><span class="badge rounded-pill"></span>
+                                <span>Newsletter</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a asp asp-action="Index" asp-controller="AvailableDate" asp-area="Admin" class="waves-effect">
+                                <i class="ri-calendar-fill"></i><span class="badge rounded-pill"></span>
+                                <span>Available dates</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a asp asp-action="Index" asp-controller="TransactionReservation" asp-area="Admin" class="waves-effect">
+                                <i class="ri-reserved-fill"></i><span class="badge rounded-pill"></span>
+                                <span>Reservations</span>
+                            </a>
+                        </li>
+
+                    </ul>
+                </div>
+                <!-- Sidebar -->
+            </div>
+        </div>
+        <!-- Left Sidebar End -->
+        <!-- ============================================================== -->
+        <!-- Start right Content here -->
+        <!-- ============================================================== -->
+        <div class="main-content">
+
+            <div class="page-content">
+                <div class="container-fluid">
+                        
+                    @RenderBody()
+
+                </div>
+                    
+            </div>
+            <!-- End Page-content -->
+               
+            <footer class="footer">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <script>document.write(new Date().getFullYear())</script> © Upcube.
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="text-sm-end d-none d-sm-block">
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </footer>
+                
+        </div>
+        <!-- end main content-->
+        <form asp-action="Logout" asp-controller="Account" id="frmLogout" method="post">
+        </form>
+    </div>
+    <!-- END layout-wrapper -->
+
+    <!-- Right bar overlay-->
+    <div class="rightbar-overlay"></div>
+
+    <!-- JAVASCRIPT -->
+    <script src="~/Admin Template/assets/libs/jquery/jquery.min.js"></script>
+    <script src="~/Admin Template/assets/libs/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="~/Admin Template/assets/libs/metismenu/metisMenu.min.js"></script>
+    <script src="~/Admin Template/assets/libs/simplebar/simplebar.min.js"></script>
+    <script src="~/Admin Template/assets/libs/node-waves/waves.min.js"></script>
+
+    <!-- Required datatable js -->
+    <script src="~/Admin Template/assets/libs/datatables.net/js/jquery.dataTables.min.js"></script>
+    <script src="~/Admin Template/assets/libs/datatables.net-bs4/js/dataTables.bootstrap4.min.js"></script>
+        
+    <!-- Responsive examples -->
+    <script src="~/Admin Template/assets/libs/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
+    <script src="~/Admin Template/assets/libs/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js"></script>
+
+    <!-- App js -->
+    <script src="~/Admin Template/assets/js/app.js"></script>
+
+    @await RenderSectionAsync("Scripts", required: false)
+    <script>
+        $(document).ready(function(){
+            $(".btnLogout").click(function(){
+        $("#frmLogout").submit();
+            });
+        });
+    </script>
+</body>
+
+</html>

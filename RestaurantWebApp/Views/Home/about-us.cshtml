@@ -1,0 +1,81 @@
+﻿@using RestaurantWebApp22092026.ViewModels
+@{
+    ViewData["Title"] = "About us";
+}
+@model HomeViewModel
+
+<!doctype html>
+<html class="no-js" lang="zxx">
+    
+<!-- Mirrored from htmldemo.hasthemes.com/basmoti/basmoti/about-us.html by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 21 Jul 2021 11:16:38 GMT -->
+<!-- Added by HTTrack -->
+<meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
+<body>
+    <!-- header start -->
+    <div class="breadcrumb-area bg-img ptb-80" style="background-image: url('@Url.Content("~/SystemSettingsImages/" + Model.SystemSettings?.SliderBackgroundURL)');">
+        <div class="container">
+            <div class="breadcrumb-content text-center">
+                <h3>about us</h3>
+                <ul>
+                    <li>
+                        <a asp-controller="Home" asp-action="Index">Home</a>
+                    </li>
+                    <li class="active">@Model.Titles.FirstOrDefault(x => x.TitleKeyword == "AboutUs")?.Title</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="about-area ptb-95">
+        <div class="container">
+            <div class="row d-flex align-items-center">
+                <div class="col-lg-6">
+                    <div class="about-content pr-30">
+                        <h2>@Model.About.FirstOrDefault(x => x.IsActive == true)?.AboutTitle</h2>
+                        <h3>@Model.About.FirstOrDefault(x => x.IsActive == true)?.AboutBrief</h3>
+                        <div class="about-peragraph">
+                            @Model.About.FirstOrDefault(x => x.IsActive == true)?.AboutDesc
+                            <div class="default-btn-style mt-35">
+                                <a asp-controller="Home" asp-action="Index">read more</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="about-img">
+                        <img src="~/AboutImages/@Model.About.FirstOrDefault(x => x.IsActive == true)?.AboutImageURL">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+        
+    <div class="services-area pt-100 pb-70 gray-bg">
+        <div class="container">
+            <div class="section-title text-center mb-50">
+                <h2>@Model.Titles.FirstOrDefault(x => x.TitleKeyword == "Service")?.Title</h2>
+                <p> @Model.Titles.FirstOrDefault(x => x.TitleKeyword == "Service")?.TitleDesc</p>
+            </div>
+            <div class="row">
+                @foreach(var item in Model.Services)
+                    {
+                    <div class="col-lg-4 col-md-4 col-sm-6 col-12">
+                        <div class="single-service text-center mb-30">
+                            <i class="@item.ServicesIcon"></i>
+                            <h3>@item.ServicesTitle</h3>
+                            <p>@item.ServicesDesc</p>
+                        </div>
+                    </div>
+                    }
+            </div>
+        </div>
+    </div>      
+
+        
+        
+        
+        
+</body>
+
+<!-- Mirrored from htmldemo.hasthemes.com/basmoti/basmoti/about-us.html by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 21 Jul 2021 11:16:39 GMT -->
+</html>

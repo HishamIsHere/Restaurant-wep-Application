@@ -1,0 +1,98 @@
+﻿@using RestaurantWebApp22092026.ViewModels
+@{
+    ViewData["Title"] = "Contact Us";
+    ViewData["HidePartners"] = true;
+    ViewData["HideAboutUs"] = true;
+}
+@model HomeViewModel
+<!doctype html>
+<html class="no-js" lang="zxx">
+    
+<!-- Mirrored from htmldemo.hasthemes.com/basmoti/basmoti/contact.html by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 21 Jul 2021 11:16:50 GMT -->
+<!-- Added by HTTrack -->
+<meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
+<body>
+    <!-- header start -->
+    <div class="breadcrumb-area bg-img ptb-80" style="background-image: url('@Url.Content("~/SystemSettingsImages/" + Model.SystemSettings?.SliderBackgroundURL)');">
+        <div class="container">
+            <div class="breadcrumb-content text-center">
+                <h3>@Model.Titles.FirstOrDefault(x => x.TitleKeyword == "Contact Us")?.Title</h3>
+                <ul>
+                    <li>
+                        <a asp-controller="Home" asp-action="Index">Home</a>
+                    </li>
+                    <li class="active">@Model.Titles.FirstOrDefault(x => x.TitleKeyword == "Contact Us")?.Title</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="contact-area pt-100">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8">
+                    <div class="contact-message-wrapper">
+                        <h4 class="contact-title mb-25">@Model.Titles.FirstOrDefault(x => x.TitleKeyword == "ContactUsForm")?.Title</h4>
+                        <div class="contact-message">
+                            <form asp-controller="Home" asp-action="SendContactMessage"  method="post">
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <div class="contact-form-style mb-20">
+                                            <input name="FullName" placeholder="Full Name" type="text">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="contact-form-style mb-20">
+                                            <input name="Email" placeholder="Email Address" type="email">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12">
+                                        <div class="contact-form-style mb-20">
+                                            <input name="Subject" placeholder="Subject" type="text">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12">
+                                        <div class="contact-form-style">
+                                            <textarea name="Message" placeholder="Message"></textarea>
+                                            <button class="submit btn-style" type="submit">SEND MESSAGE</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                            <p class="form-messege"></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="contact-info-area">
+                        <h4 class="contact-title mb-18">@Model.Titles.FirstOrDefault(x => x.TitleKeyword == "Contact Us")?.Title</h4>
+                        <p>@Model.Titles.FirstOrDefault(x => x.TitleKeyword == "Contact Us")?.TitleDesc</p>
+                        <div class="contact-info-wrap">
+                            @foreach (var item in Model.MasterContactUs)
+                                {
+                                <div class="single-contact-info mb-40">
+                                    <div class="contact-icon">
+                                        <i style="width:50px; height:50px;" class="@item.MasterContactUsIcon"></i>
+                                    </div>
+                                    <div class="contact-info-content">
+                                        <h4>@item.MasterContactUsLink</h4>
+                                        <p>@item.MasterContactUsText</p>
+                                    </div>
+                                </div>
+                                }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="pt-50"></div>
+   
+        
+        
+        
+   
+</body>
+
+<!-- Mirrored from htmldemo.hasthemes.com/basmoti/basmoti/contact.html by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 21 Jul 2021 11:16:50 GMT -->
+</html>
+

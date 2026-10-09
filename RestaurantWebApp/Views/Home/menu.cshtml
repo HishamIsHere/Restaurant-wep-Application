@@ -1,0 +1,113 @@
+﻿@using RestaurantWebApp22092026.ViewModels
+@{
+    ViewData["Title"] = "Menu";
+}
+@model HomeViewModel
+<!doctype html>
+<html class="no-js" lang="zxx">
+    
+<!-- Mirrored from htmldemo.hasthemes.com/basmoti/basmoti/menu.html by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 21 Jul 2021 11:16:39 GMT -->
+<!-- Added by HTTrack -->
+<meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
+<body>
+    <!-- header start -->
+    <div class="breadcrumb-area bg-img ptb-80" style="background-image: url('@Url.Content("~/SystemSettingsImages/" + Model.SystemSettings?.SliderBackgroundURL)');">
+        <div class="container">
+            <div class="breadcrumb-content text-center">
+                <h3>@Model.Titles.FirstOrDefault(x => x.TitleKeyword == "Menu")?.Title</h3>
+                <ul>
+                    <li>
+                        <a asp-controller="Home" asp-action="Index">Home</a>
+                    </li>
+                    <li class="active">@Model.Titles.FirstOrDefault(x => x.TitleKeyword == "Menu")?.Title</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="product-menu-area pt-100 pb-70 gray-bg">
+        <div class="container">
+            <div class="section-title text-center mb-50">
+                <h2>@Model.Titles.FirstOrDefault(x => x.TitleKeyword == "FoodMenu")?.Title</h2>
+                <p>@Model.Titles.FirstOrDefault(x => x.TitleKeyword == "FoodMenu")?.TitleDesc</p>
+            </div>
+            <div class="menu-tab-wrap mb-50">
+                <div class="menu-tab-list nav text-center">
+                    <a href="javascript:void(0)" class="filter btn btn-sm active" data-group="all">
+                        All items
+                    </a>
+
+                    @foreach (var category in Model.MenuCategory.Where(x => x.MenuCategoryName != "All"))
+                    {
+                        <a href="javascript:void(0)" class="filter btn btn-sm" data-group="category_@category.Id">
+                            @category.MenuCategoryName
+                        </a>
+                    }
+
+                </div>
+            </div>
+            <div class="tab-content jump">
+                <div id="tab1" class="tab-pane active">
+                    <div class="row">
+                            @foreach (var chunk in Model.MenuItems.Chunk(3))
+                            {
+                            <div class="col-lg-6">
+                                @foreach (var item in chunk)
+                                {
+                                    <figure data-groups='["all", "category_@item.MenuCategoryId"]'>
+                                        <div class="single-menu-product mb-30 cat-@item.MenuCategoryId">
+                                            <div class="menu-product-img">
+                                                <img src="~/MenuItemsImage/@item.MenuItemsImageURL">
+                                             </div>
+                                            <div class="menu-product-content">
+                                                <div class="menu-title-price">
+                                                    <div class="menu-title">
+                                                        <h4>
+                                                            @item.MenuItemsTitle
+                                                        </h4>
+                                                    </div>
+                                                    <div class="menu-price">
+                                                        <span>JOD @item.MenuItemsPrice</span>
+                                                    </div>
+                                                </div>
+                                                <p>@item.MenuItemsFirstDesc</p>
+                                            </div>
+                                        </div>
+                                    </figure>
+                                }
+                            </div>
+                            }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    @section Scripts {
+        <script>
+                $(function () {
+                    $('.menu-tab-list .filter').on('click', function (e) {
+                        e.preventDefault();
+
+                        var $btn = $(this);
+                        var group = $btn.data('group');
+
+                        $('.menu-tab-list .filter').removeClass('active');
+                        $btn.addClass('active');
+
+                        $('figure[data-groups]').each(function () {
+                            var $figure = $(this);
+                            var groups = $figure.data('groups');
+
+                            if (group === 'all' || $.inArray(String(group), groups.map(String)) !== -1) {
+                                $figure.stop(true, true).fadeIn(200);
+                            } else {
+                                $figure.stop(true, true).fadeOut(200);
+                            }
+                        });
+                    });
+                });
+        </script>
+    }
+</body>
+
+<!-- Mirrored from htmldemo.hasthemes.com/basmoti/basmoti/menu.html by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 21 Jul 2021 11:16:39 GMT -->
+</html>

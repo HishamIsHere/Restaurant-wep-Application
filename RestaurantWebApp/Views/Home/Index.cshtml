@@ -1,0 +1,284 @@
+﻿@using RestaurantWebApp22092026.ViewModels
+@{
+    ViewData["Title"] = "Home Page";
+    ViewData["HideSecondHeader"] = true;
+}
+@model HomeViewModel
+<!doctype html>
+<html class="no-js" lang="zxx">
+    
+<!-- Mirrored from htmldemo.hasthemes.com/basmoti/basmoti/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 21 Jul 2021 11:15:26 GMT -->
+<!-- Added by HTTrack -->
+<meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
+<body>
+    <!-- header start -->
+    <header class="header-area transparent-bar header-position">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-3 col-md-4 col-5 col-sm-4">
+                    <div class="logo">
+                        <a asp-controller="Home" asp-action="Index">
+                            <img class="logo-normal" alt="" style="max-height: 50px; max-width: 130px" src="~/SystemSettingsImages/@Model.SystemSettings.LogoLightURL">
+                            <img class="logo-sticky" alt="" style="max-height: 50px; max-width: 130px" src="~/SystemSettingsImages/@Model.SystemSettings.LogoDarkURL">
+                        </a>
+                    </div>
+                </div>
+                <div class="col-lg-9 col-md-8 col-7 col-sm-8 relative">
+                    <div class="menu-search-bundle">
+                        <div class="main-menu">
+                            <nav>
+                                <ul>
+                                    <li class="top-hover">
+                                        <a asp-controller="Home" asp-action="Index">home </a>
+                                             
+                                    </li>
+                                    <li><a asp-controller="Home" asp-action="AboutUs">about</a></li>
+                                    <li class="mega-menu-position top-hover">
+                                        <a asp-controller="Home" asp-action="Menu">menu </a>
+                                             
+                                    </li>
+
+                                       
+                                    <li><a asp-controller="Home" asp-action="ContactUs">contact us</a></li>
+                                </ul>
+                            </nav>
+                        </div>
+                        <div class="search-wrap">
+                            <button class="search-toggle">
+                                <i class="fa fa-search"></i>
+                            </button>
+                            <div class="search">
+                                <form action="#">
+                                    <input type="search" placeholder="Search here">
+                                    <button type="submit">
+                                        Search
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="mobile-menu-area d-md-block d-block col-md-12 col-lg-12 col-12 d-lg-none d-xl-none">
+                    <div class="mobile-menu">
+                        <nav id="mobile-menu-active">
+                            <ul class="menu-overflow">
+                                <li>
+                                    <a href="#">HOME</a>
+                                    <ul>
+                                        <li><a asp-controller="Home" asp-action="Index">home</a></li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <a href="#">pages</a>
+                                    <ul>
+                                        <li><a asp-controller="Home" asp-action="AboutUs">about us </a></li>
+                                        <li><a asp-controller="Home" asp-action="Menu">menu </a></li>
+                                        <li><a asp-controller="Home" asp-action="ContactUs">contact us</a></li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <a href="#">menu</a>
+                                    <ul>
+                                        <li>
+                                            <a href="#">menu list</a>
+                                            <ul>
+                                                @foreach (var item in Model.MenuItems)
+                                                    {
+                                                    <li><a asp-controller="Home" asp-action="Menu">@item.MenuItemsTitle</a></li>
+                                                    }
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <a href="#">blog</a>
+                                    <ul>
+                                        <li><a asp-controller="Home" asp-action="ProductDetails">Blog</a></li>
+                                    </ul>
+                                </li>
+                                <li><a asp-controller="Home" asp-action="ContactUs"> Contact us </a></li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+    <div class="slider-area">
+        <div class="slider-active owl-dot-style owl-carousel">
+            @foreach (var item in Model.Slider)
+            {
+                <div class="single-slider bg-img height-100vh d-flex align-items-center justify-content-center"
+                     style="background-image: url('@Url.Content("~/Sliderimages/" + item.SliderImageURL)');">
+                    <div class="slider-content pt-100">
+                        <div class="slider-content-wrap slider-animated-1">
+                            <h2>@Html.Raw(item.SliderTitle)</h2>
+                            <h1 class="animated">@item.SliderBrief</h1>
+                            <p>@item.SliderDesc</p>
+                            <div class="slider-btn mt-20">
+                                <a class="animated" asp-controller="Home" asp-action="ProductDetails">read more</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+    <div class="about-area ptb-95">
+        <div class="container">
+            <div class="row d-flex align-items-center">
+                <div class="col-lg-6">
+                    <div class="about-content pr-30">
+                        <h2>@Model.About.FirstOrDefault(x => x.IsActive == true)?.AboutTitle</h2>
+                        <h3>@Model.About.FirstOrDefault(x => x.IsActive == true)?.AboutBrief</h3>
+                        <div class="about-peragraph">
+                            @Model.About.FirstOrDefault(x => x.IsActive == true)?.AboutDesc
+                            <div class="default-btn-style mt-35">
+                                <a asp-controller="Home" asp-action="Index">read more</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="about-img">
+                        <img src="~/AboutImages/@Model.About.FirstOrDefault(x => x.IsActive == true)?.AboutImageURL">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="popular-product gray-bg pt-100 pb-100">
+        <div class="container">
+            <div class="section-title text-center mb-50">
+                <h2>@Model.Titles.FirstOrDefault(x => x.TitleKeyword == "PopularDishes")?.Title</h2>
+                <p>@Model.Titles.FirstOrDefault(x => x.TitleKeyword == "PopularDishes")?.TitleDesc</p>
+            </div>
+            <div class="product-slider-active owl-carousel">
+                    @foreach(var item in Model.MenuItems.Where(x => x.IsPopular).DistinctBy(x => x.MenuItemsTitle ))
+                    {
+                    <div class="product-style-wrap">
+                        <img style="max-height:250px; max-width:370px" src="~/MenuItemsImage/@item.MenuItemsImageURL">
+                        <div class="product-content text-center">
+                            <h4>
+                                @item.MenuItemsTitle
+                            </h4>
+                            <p>@item.MenuItemsSecondDesc</p>
+                            <span>JOD @item.MenuItemsPrice</span>
+                        </div>
+                    </div>
+                    }
+            </div>
+        </div>
+        <div class="popular-bg-img">
+            <img alt="" src="~/SystemSettingsImages/@Model.SystemSettings.PopularBackgroundURL">
+        </div>
+    </div>
+
+         
+    <div class="book-table ptb-100 bg-img" id="book" style="background-image:url('@Url.Content("~/SystemSettingsImages/" + Model.SystemSettings.SliderBackgroundURL)');">
+        <div class="container">
+            <div class="section-title text-center text-white mb-50">
+                <h2 class="text-white">@Model.Titles.FirstOrDefault(x => x.TitleKeyword == "ReservationTitle")?.Title</h2>
+                <p class="text-white">@Model.Titles.FirstOrDefault(x => x.TitleKeyword == "ReservationTitle")?.TitleDesc</p>
+            </div>
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="reserve-form">
+                        <h3 class="reserv-title text-white">Reservation Form</h3>
+                        <form asp-action="Reserve" class="text-white" method="post" asp-controller="Home">
+                            @Html.AntiForgeryToken()
+                            <div class="reserve-form-top">
+                                <input asp-for="TransactionReservation.FullName" type="text" class="bg-white border-white" placeholder="Full name" />
+                                <span asp-validation-for="TransactionReservation.FullName" class="text-danger"></span>
+                                <input asp-for="TransactionReservation.EmailAddress" type="email" class=" bg-white border-white" placeholder="Email address" />
+                                <span asp-validation-for="TransactionReservation.EmailAddress" class="text-danger"></span>
+                                <input asp-for="TransactionReservation.MobileNumber" type="text" class=" bg-white border-white" placeholder="Mobile number" />
+                                <span asp-validation-for="TransactionReservation.MobileNumber" class="text-danger text-white"></span>
+                                <div class="date-time">
+                                    <select class="bg-white border-white" asp-for="TransactionReservation.AvailableDateId"
+                                            asp-items="@(new SelectList(Model.AvailableDates ?? new(), "Id", "FormattedDate"))">
+                                        <option value="" disabled selected>Select Date And Time</option>
+                                    </select>
+                                    <span asp-validation-for="TransactionReservation.AvailableDateId" class="text-danger"></span>
+                                </div>
+                            </div>
+
+                            <div class="reserve-submit mt-40">
+                                <button type="submit"> submit </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="book-img">
+                        <img src="~/SystemSettingsImages/@Model.SystemSettings.ReservationImageURL" alt="">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="testimonial-area ptb-100 gray-bg">
+        <div class="container">
+            <div class="section-title text-center mb-50">
+                <h2>@Model.Titles.FirstOrDefault(x => x.TitleKeyword == "FeedbackTitle")?.Title</h2>
+                <p>@Model.Titles.FirstOrDefault(x => x.TitleKeyword == "FeedbackTitle")?.TitleDesc</p>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="testimonial-image-slider text-center">
+                        @foreach (var item in Model.Feedback)
+                        {
+                            <div class="single-testi-text">
+                                <p>@item.FeedbackDesc</p>
+                            </div>
+                        }
+                    </div>
+                    <div class="testimonial-text-slider text-center">
+                        @foreach (var item in Model.Feedback)
+                        {
+                            <div class="single-testi-img">
+                                <img src="~/FeedbackImages/@item.FeedbackImageURL" style="max-width:90px; max-height: 90px;" />
+                                <h3>@item.FeedbackName</h3>
+                                <h5>@item.FeedbackTitle</h5>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+         
+    <div class="offer-area gray-bg ptb-100 bg-img" style="background-image:url('@Url.Content("~/BannerImages/" + Model.Banner.BannerImageURL)');">
+        <div class="container">
+            <div class="row">
+                <div class="xl-auto col-xl-5 ms-auto col-lg-6 col-md-12">
+                    <div class="offer-content">
+                        <h5>@Model.Banner.BannerTitle</h5>
+                        <h2>@Model.Banner.BannerBrief</h2>
+                        <p>@Model.Banner.BannerDesc</p>
+                        <div class="default-btn-style book-btn mt-35">
+                            <a class="scroll-up" href="#book">Book Now</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+     @if (TempData["SuccessMessage"] != null)
+{
+    <script>
+        $(document).ready(function () {
+            Swal.fire({
+                title: "Success!",
+                text: "@TempData["SuccessMessage"]",
+                icon: "success",
+                confirmButtonColor: "#e04f33"
+            });
+        });
+    </script>
+}
+</body>
+
+<!-- Mirrored from htmldemo.hasthemes.com/basmoti/basmoti/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 21 Jul 2021 11:16:14 GMT -->
+</html>

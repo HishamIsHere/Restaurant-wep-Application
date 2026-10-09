@@ -1,0 +1,97 @@
+﻿@model List<RestaurantWebApp22092026.ViewModels.TransactionReservationViewModel>
+
+@{
+    ViewData["Title"] = "Reservations List";
+}
+
+<div class="card shadow mb-4">
+    <div class="card-header py-3 d-flex justify-content-between align-items-center">
+        <h5 class="m-0 font-weight-bold text-primary">Customer Reservations</h5>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-bordered table-hover align-middle">
+                <thead class="table-light">
+                    <tr>
+                        <th>#</th>
+                        <th>Full Name</th>
+                        <th>Email Address</th>
+                        <th>Mobile Number</th>
+                        <th>Date & Time</th>
+                        <th>Status</th>
+                        <th class="text-center">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (Model != null && Model.Any())
+                    {
+                        int index = 1;
+                        foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>@(index++)</td>
+                                <td>@item.FullName</td>
+                                <td>@item.EmailAddress</td>
+                                <td>@item.MobileNumber</td>
+                                <td>
+                                    <span class="fw-bold">@(item.ReservationDate ?? "N/A")</span>
+                                </td>
+                                <td>
+                                    @if (item.IsActive)
+                                    {
+                                        <span class="badge bg-success">Active</span>
+                                    }
+                                    else
+                                    {
+                                        <span class="badge bg-secondary">Inactive</span>
+                                    }
+                                </td>
+                                <td class="text-center">
+                                    <form asp-action="ToggleStatus" asp-route-id="@item.Id" method="post" class="d-inline">
+                                        @Html.AntiForgeryToken()
+                                        <button type="button"
+                                                class="btn btn-sm @(item.IsActive ? "btn-outline-danger" : "btn-outline-success") btnToggleStatus">
+                                            @(item.IsActive ? "Deactivate" : "Activate")
+                                        </button>
+                                    </form>
+                                </td>
+                            </tr>
+                        }
+                    }
+                    else
+                    {
+                        <tr>
+                            <td colspan="7" class="text-center text-muted">No reservations found.</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        $(document).ready(function () {
+        $('.btnToggleStatus').click(function (e) {
+        e.preventDefault();
+        var form = $(this).closest('form');
+
+        Swal.fire({
+        title: "Are you sure?",
+        text: "Do you want to change the status of this reservation?",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes, update it!"
+        }).then((result) => {
+        if (result.isConfirmed) {
+        form.submit();
+        }
+        });
+        });
+        });
+    </script>
+}

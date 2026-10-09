@@ -1,0 +1,199 @@
+﻿@model RestaurantWebApp22092026.ViewModels.OpeningTimeFullViewModel
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<div class="row justify-content-center">
+    <div class="col-sm-6 col-md-4 col-xl-3">
+        <div class="col-lg-12 ">
+            <div class="card card-body text-center">
+                <h4 class="card-title">Record Configuration</h4>
+                <p class="card-text">
+                    Press the button below to add a record
+                </p>
+                <button type="button" class="btn btn-primary btn-rounded waves-effect waves-light" data-bs-toggle="modal" data-bs-target=".bs-example-modal-xl">Add a Record</button>
+            </div>
+        </div>
+    </div>
+    <!--  Modal content for the above example -->
+    <form asp-action="CreateOrUpdate" method="post" asp-controller="OpeningTime" id="terminalForm">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <input type="hidden" asp-for="Id" />
+        <div class="modal fade bs-example-modal-xl" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-xl">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="myExtraLargeModalLabel">Settings</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="col-lg-6">
+                                                <div>
+                                                    <div class="mb-4 form-group form-control-lg">
+                                                        <label asp-for="OpeningTimeDay" class="control-label"></label>
+                                                        <input asp-for="OpeningTimeDay" class="form-control" />
+                                                        <span asp-validation-for="OpeningTimeDay" class="text-danger"></span>
+                                                    </div>
+                                                    <div class="mb-4 form-group form-control-lg">
+                                                        <label asp-for="OpeningTimeStartTime" class="control-label"></label>
+                                                        <input asp-for="OpeningTimeStartTime" type="time" min="06:00" max="24:00" class="form-control" />
+                                                        <span asp-validation-for="OpeningTimeStartTime" class="text-danger"></span>
+                                                    </div>
+                                                    <div class="mb-4 form-group form-control-lg">
+                                                        <label asp-for="OpeningTimeEndTime" class="control-label"></label>
+                                                        <input asp-for="OpeningTimeEndTime" type="time" min="06:00" max="24:00" class="form-control" />
+                                                        <span asp-validation-for="OpeningTimeEndTime" class="text-danger"></span>
+                                                    </div>
+                                                    <div class="mb-4 form-check">
+                                                        <input asp-for="IsOpen" class="form-check-input" type="checkbox" id="IsOpen" />
+                                                        <label asp-for="IsOpen" class="form-check-label"></label>
+                                                    </div>
+                                                    <div class="mb-4 form-check">
+                                                        <input asp-for="IsActive" class="form-check-input" type="checkbox" id="IsActive" />
+                                                        <label asp-for="IsActive" class="form-check-label"></label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <input type="submit" value="Save" class="btn btn-success btn-rounded waves-effect waves-light" />
+                        <input type="reset" value="Clear" class="btn btn-warning btn-rounded waves-effect waves-light" />
+                        <button type="button" class="btn btnClose btn-light btn-rounded waves-effect waves-light" data-bs-dismiss="modal">Close</button>
+                    </div>
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+        </div><!-- /.modal -->
+    </form>
+</div>
+
+<div class="table-responsive">
+    <table class="table mb-0">
+        
+        <thead class="table-light">
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.OpeningTimeDay)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.OpeningTimeStartTime)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.OpeningTimeEndTime)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.IsOpen)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.IsActive)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model?.List != null)
+            {
+                @foreach (var item in Model.List)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.OpeningTimeDay)
+                        </td>
+                        <td>
+                            @item.FormattedOpeningTimeStartTime
+                        </td>
+                        <td>
+                            @item.FormattedOpeningTimeEndTime
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.IsOpen)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.IsActive)
+                        </td>
+                        <td>
+                            <a class="btn btn-light btn-rounded waves-effect btnEdit"
+                               data-id="@item.Id"
+                               data-openingtimeday="@item.OpeningTimeDay"
+                               data-openingtimestarttime="@item.OpeningTimeStartTime"
+                               data-openingtimeendtime="@item.OpeningTimeEndTime"
+                               data-isopen ="@item.IsOpen"
+                               data-isactive="@item.IsActive"
+                               data-bs-toggle="modal"
+                               data-bs-target=".bs-example-modal-xl">Edit</a>
+                            <form asp-action="Delete" method="post">
+                                <input type="hidden" asp-for="DeleteId" value="@item.Id" />
+                                <a class="btn btn-danger btn-rounded waves-effect waves-light btnDelete ">Delete</a>
+                            </form>
+                        </td>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+</div>
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        $(document).ready(function(){
+        $('.btnEdit').click(function(){
+
+        var Id = $(this).data('id');
+        var OpeningTimeStartTime = $(this).data('openingtimestarttime');
+        var OpeningTimeEndTime = $(this).data('openingtimeendtime');
+        var OpeningTimeDay = $(this).data('openingtimeday');
+        var IsOpen = $(this).data('isopen');
+        var IsActive = $(this).data('isactive');
+
+        $("#Id").val(Id);
+        $("#OpeningTimeStartTime").val(OpeningTimeStartTime);
+        $("#OpeningTimeEndTime").val(OpeningTimeEndTime);
+        $("#OpeningTimeDay").val(OpeningTimeDay);
+        $("#IsOpen").val(IsOpen);
+        $("#IsActive").prop('checked', IsActive === true || IsActive === 'True' || IsActive === 'true');
+        $("#IsOpen").prop('checked', IsOpen === true || IsOpen === 'True' || IsOpen === 'true');
+        });
+
+        $('.bs-example-modal-xl').on('hidden.bs.modal', function() {
+        $('#terminalForm')[0].reset();
+        $('#Id').val('');
+        });
+
+        $('.btnDelete').click(function(){
+        Swal.fire({
+        title: "Are you sure?",
+        text: "You won't be able to revert this!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes, delete it!"
+        }).then((result) => {
+        if (result.isConfirmed) Swal.fire({
+        title: "Deleted!",
+        text: "Your file has been deleted.",
+        icon: "success"
+        });
+        $(this).parent().submit();
+
+
+
+        });
+        })
+        })
+    </script>
+}
